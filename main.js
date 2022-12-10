@@ -25,6 +25,7 @@ var app = new Vue({
     question: "",
     score: 0,
     answer: "",
+    x: 0,
   },
   methods: {
     onKeyDown(event) {
@@ -50,6 +51,11 @@ var app = new Vue({
     this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
     setInterval(() => {
       this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+      if (this.x == -600) {
+        this.x = 600;
+      } else {
+        this.x = -600;
+      }
     }, 1000);
     document.addEventListener("keydown", this.onKeyDown);
   },

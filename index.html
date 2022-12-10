@@ -24,7 +24,9 @@
 
 <body>
   <div id="app" class="flex justify-center items-center h-screen bg-slate-800 flex-col">
-    <div class="text-white" text-2xl>{{ question }}</div>
+    <div class="text-white text-8xl duration-1000" :style="{transform: `translate(${x}px, 0px)`}">
+      {{ question }}
+      </div>
     <div class="bg-slate-600 p-2 rounded-lg">
       <div v-for="(row_keys, i) in keys" :style="{ 'padding-left': paddingLeft[i] + 'px'}">
         <div class="inline-block" v-for="k in row_keys">
