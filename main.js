@@ -9,18 +9,22 @@ var app = new Vue({
     ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";", ":", "]"],
     ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "_"],
     ["Space", "Enter"]],
-    paddingLeft: [0, 20, 35, 50, 65],
-    questions: ["large mouth bass",
-      "sea bass",
-      "bule gill",
-      "small mouth bass",
-      "gold fish",
-      "wakasagi",
-      "cat fish",
-      "back crash",
-      "carp",
-      "cast"],
+    // paddingLeft: [0, 20, 35, 50, 65],
+    // questions: ["large mouth bass",
+    //   "sea bass",
+    //   "bule gill",
+    //   "small mouth bass",
+    //   "gold fish",
+    //   "wakasagi",
+    //   "cat fish",
+    //   "back crash",
+    //   "carp",
+    //   "cast"],
+    paddingLeft: [0, 8, 16, 32, 60],
+    questions: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-"],
     question: "",
+    score: 0,
+    answer: "",
   },
   methods: {
     onKeyDown(event) {
@@ -41,9 +45,12 @@ var app = new Vue({
       return undefined;
     },
   },
+  // 引数で受け取ったものは毎回更新されない。
   mounted() {
-    let i = Math.floor(Math.random() * 10);
-    this.question = this.questions[i];
+    this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+    setInterval(() => {
+      this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+    }, 1000);
     document.addEventListener("keydown", this.onKeyDown);
   },
 });
