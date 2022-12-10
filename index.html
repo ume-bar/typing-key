@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <meta charset="utf-8" />
+  <title>first vue app</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .key {
+        @apply p-2 m-1 bg-slate-400 inline-block w-9 flex justify-center text-white rounded
+      }
+      .active-key {
+        @apply bg-slate-50 text-gray-800
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="flex justify-center items-center h-screen bg-slate-800 flex-col">
+    <div class="text-white" text-2xl>{{ question }}</div>
+    <div class="bg-slate-600 p-2 rounded-lg">
+      <div v-for="(row_keys, i) in keys" :style="{ 'padding-left': paddingLeft[i] + 'px'}">
+        <div class="inline-block" v-for="k in row_keys">
+          <div class="key" :class="{'active-key': key == k}" :style="{'width': keyWidth(k)}">{{ k }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://unpkg.com/vue@2"></script>
+<script src="main.js"></script>
+
+</html>
