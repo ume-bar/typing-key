@@ -36,7 +36,7 @@ var app = new Vue({
       } else if (this.keyCode == 13) {
         this.key = "Enter";
       }
-      if (this.y == this.question) {
+      if (this.y == this.question.toUpperCase()) {
         this.score += 100;
       } else {
         this.score -= 50;
