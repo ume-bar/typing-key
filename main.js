@@ -36,6 +36,11 @@ var app = new Vue({
       } else if (this.keyCode == 13) {
         this.key = "Enter";
       }
+      if (this.y == this.question) {
+        this.score += 100;
+      } else {
+        this.score -= 50;
+      }
     },
     keyWidth(key) {
       if (key == "Space") {
@@ -56,7 +61,7 @@ var app = new Vue({
       } else {
         this.x = -600;
       }
-    }, 1000);
+    }, 3000);
     document.addEventListener("keydown", this.onKeyDown);
   },
 });
