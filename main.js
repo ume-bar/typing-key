@@ -67,12 +67,7 @@ var app = new Vue({
   },
   // 引数で受け取ったものは毎回更新されない。
   mounted() {
-    if (this.timer > 0) {
-      this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
-    } else {
-      // ここが違う気がする
-      this.question = "";
-    }
+    this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
     setInterval(() => {
       if (this.timer > 0) {
         this.timer -= 1;
@@ -81,13 +76,17 @@ var app = new Vue({
           this.finishAudio.play();
         }
       }
-      this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+      if (this.timer > 0) {
+        this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+      } else {
+        this.question = "";
+      }
       if (this.x == -600) {
         this.x = 600;
       } else {
         this.x = -600;
       }
-    }, 100);
+    }, 1000);
     document.addEventListener("keydown", this.onKeyDown);
   }
 });
