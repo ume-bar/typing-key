@@ -26,6 +26,10 @@ var app = new Vue({
     score: 0,
     answer: "",
     x: 0,
+    goodAudio: new Audio("./good.mp3"),
+    badAudio: new Audio("./bad.mp3"),
+    finishAudio: new Audio("./finish.mp3"),
+    timer: 0,
   },
   methods: {
     onKeyDown(event) {
@@ -36,10 +40,20 @@ var app = new Vue({
       } else if (this.keyCode == 13) {
         this.key = "Enter";
       }
-      if (this.y == this.question.toUpperCase()) {
+      if (this.key == "Enter") {
+        this.score = 0;
+        this.timer = 60;
+        return;
+      }
+      if (this.key == this.question.toUpperCase() && this.timer > 0) {
         this.score += 100;
-      } else {
+        this.goodAudio.currentTime = 0;
+        this.goodAudio.play();
+        // this.key != this.question.toUpperCase()はいらない。
+      } else if (this.timer > 0) {
         this.score -= 50;
+        this.badAudio.currentTime = 0;
+        this.badAudio.play();
       }
     },
     keyWidth(key) {
@@ -53,15 +67,27 @@ var app = new Vue({
   },
   // 引数で受け取ったものは毎回更新されない。
   mounted() {
-    this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+    if (this.timer > 0) {
+      this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
+    } else {
+      // ここが違う気がする
+      this.question = "";
+    }
     setInterval(() => {
+      if (this.timer > 0) {
+        this.timer -= 1;
+        if (this.timer == 0) {
+          this.finishAudio.currentTime = 0;
+          this.finishAudio.play();
+        }
+      }
       this.question = this.questions[Math.floor(Math.random() * this.questions.length)];
       if (this.x == -600) {
         this.x = 600;
       } else {
         this.x = -600;
       }
-    }, 3000);
+    }, 100);
     document.addEventListener("keydown", this.onKeyDown);
-  },
+  }
 });
